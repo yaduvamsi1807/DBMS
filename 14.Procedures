@@ -1,0 +1,65 @@
+mysql> create database ashwini;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use ashwini;
+Database changed
+mysql> create table student(id int(10),first_name varchar(50),last_name varchar(50),age int(10),subject varchar(30),games varchar(20));
+Query OK, 0 rows affected, 2 warnings (0.05 sec)
+
+mysql> desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| id         | int         | YES  |     | NULL    |       |
+| first_name | varchar(50) | YES  |     | NULL    |       |
+| last_name  | varchar(50) | YES  |     | NULL    |       |
+| age        | int         | YES  |     | NULL    |       |
+| subject    | varchar(30) | YES  |     | NULL    |       |
+| games      | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into student values(1,'rahul','sharma',12,'maths','football');
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  insert into student values(34,'anjali','bhagwat',14,'science','cricket');
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  insert into student values(104,'stephen','fleming',9,'maths','badminton');
+Query OK, 1 row affected (0.01 sec)
+
+mysql>  insert into student values(99,'priya','chandra',15,'economics','chess');
+Query OK, 1 row affected (0.03 sec)
+
+mysql>  insert into student values(50,'shekar','gowda',18,'maths','badminton');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select*from student;
++------+------------+-----------+------+-----------+-----------+
+| id   | first_name | last_name | age  | subject   | games     |
++------+------------+-----------+------+-----------+-----------+
+|    1 | rahul      | sharma    |   12 | maths     | football  |
+|   34 | anjali     | bhagwat   |   14 | science   | cricket   |
+|  104 | stephen    | fleming   |    9 | maths     | badminton |
+|   99 | priya      | chandra   |   15 | economics | chess     |
+|   50 | shekar     | gowda     |   18 | maths     | badminton |
++------+------------+-----------+------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE student ()
+    -> BEGIN
+    -> SELECT ID,first_name
+    -> FROM std
+    -> WHERE subject='maths';
+    -> END //
+Query OK, 0 rows affected (0.04 sec)
+mysql> SELECT*FROM student WHERE subject ='maths';
++------+------------+-----------+------+---------+-----------+
+| id   | first_name | last_name | age  | subject | games     |
++------+------------+-----------+------+---------+-----------+
+|    1 | rahul      | sharma    |   12 | maths   | football  |
+|  104 | stephen    | fleming   |    9 | maths   | badminton |
+|   50 | shekar     | gowda     |   18 | maths   | badminton |
++------+------------+-----------+------+---------+-----------+
+3 rows in set (0.00 sec)
