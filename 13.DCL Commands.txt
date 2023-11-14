@@ -1,0 +1,71 @@
+mysql> create database kims;
+ERROR 1007 (HY000): Can't create database 'kims'; database exists
+mysql> use kims;
+Database changed
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int         | NO   | PRI | NULL    |       |
+| patiname    | varchar(20) | YES  | UNI | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
+| fee         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> create user aaaa;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> grant all on persons to aaaa;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show grants for aaaa;
++--------------------------------------------------------+
+| Grants for aaaa@%                                      |
++--------------------------------------------------------+
+| GRANT USAGE ON *.* TO `aaaa`@`%`                       |
+| GRANT ALL PRIVILEGES ON `kims`.`persons` TO `aaaa`@`%` |
++--------------------------------------------------------+
+2 rows in set (0.01 sec)
+
+mysql> revoke all on persons from aaaa;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for aaaa;
++----------------------------------+
+| Grants for aaaa@%                |
++----------------------------------+
+| GRANT USAGE ON *.* TO `aaaa`@`%` |
++----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant select,update on persons to aaaa;
+ERROR 1146 (42S02): Table 'kims.persons' doesn't exist
+mysql> grant select,update on persons to aaaa;
+ERROR 1146 (42S02): Table 'kims.persons' doesn't exist
+mysql> grant select,update on patient to aaaa;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show grants for aaaa;
++--------------------------------------------------------+
+| Grants for aaaa@%                                      |
++--------------------------------------------------------+
+| GRANT USAGE ON *.* TO `aaaa`@`%`                       |
+| GRANT SELECT, UPDATE ON `kims`.`patient` TO `aaaa`@`%` |
++--------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke update on persons from aaaa;
+ERROR 1147 (42000): There is no such grant defined for user 'aaaa' on host '%' on table 'persons'
+mysql> revoke update on patient from aaaa;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show grants for aaaa;
++------------------------------------------------+
+| Grants for aaaa@%                              |
++------------------------------------------------+
+| GRANT USAGE ON *.* TO `aaaa`@`%`               |
+| GRANT SELECT ON `kims`.`patient` TO `aaaa`@`%` |
++------------------------------------------------+
+2 rows in set (0.00 sec)
