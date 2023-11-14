@@ -1,0 +1,72 @@
+mysql> select * from order_idems;
++----------+------------+-------------+----------+
+| order_id | product_id | total_units | customer |
++----------+------------+-------------+----------+
+|     5100 |        104 |          30 | infosys  |
+|     5101 |        102 |          25 | satyam   |
+|     5102 |        103 |          25 | wipro    |
+|     5103 |        101 |          10 | tcs      |
++----------+------------+-------------+----------+
+4 rows in set (0.00 sec)
+mysql> select * from product;
++------+--------------+---------------+------------+
+| p_id | p_name       | supplier_name | unit_price |
++------+--------------+---------------+------------+
+|  101 | camera       | nikon         |        300 |
+|  100 | television   | onida         |        100 |
+|  102 | refrigerator | vediocon      |        150 |
+|  103 | ipod         | apple         |         75 |
+|  104 | mobile       | oppo          |         50 |
++------+--------------+---------------+------------+
+5 rows in set (0.00 sec)
+mysql> select order_id,p_name,unit_price,supplier_name,total_units,customer
+    -> from product,order_idems
+    -> where order_idems.product_id=product.p_id;
++----------+--------------+------------+---------------+-------------+----------+
+| order_id | p_name       | unit_price | supplier_name | total_units | customer |
++----------+--------------+------------+---------------+-------------+----------+
+|     5103 | camera       |        300 | nikon         |          10 | tcs      |
+|     5101 | refrigerator |        150 | vediocon      |          25 | satyam   |
+|     5102 | ipod         |         75 | apple         |          25 | wipro    |
+|     5100 | mobile       |         50 | oppo          |          30 | infosys  |
++----------+--------------+------------+---------------+-------------+----------+
+4 rows in set (0.03 sec)
+mysql> select order_id,p_name,unit_price,supplier_name,total_units,customer
+    -> from product p,order_idems o
+    -> where o.product_id=p.p_id;
++----------+--------------+------------+---------------+-------------+----------+
+| order_id | p_name       | unit_price | supplier_name | total_units | customer |
++----------+--------------+------------+---------------+-------------+----------+
+|     5103 | camera       |        300 | nikon         |          10 | tcs      |
+|     5101 | refrigerator |        150 | vediocon      |          25 | satyam   |
+|     5102 | ipod         |         75 | apple         |          25 | wipro    |
+|     5100 | mobile       |         50 | oppo          |          30 | infosys  |
++----------+--------------+------------+---------------+-------------+----------+
+4 rows in set (0.00 sec)
+mysql> select p_id,p_name,order_id,total_units
+    -> from product
+    -> left outer join order_idems
+    -> on product.p_id=order_idems.product_id;
++------+--------------+----------+-------------+
+| p_id | p_name       | order_id | total_units |
++------+--------------+----------+-------------+
+|  101 | camera       |     5103 |          10 |
+|  100 | television   |     NULL |        NULL |
+|  102 | refrigerator |     5101 |          25 |
+|  103 | ipod         |     5102 |          25 |
+|  104 | mobile       |     5100 |          30 |
++------+--------------+----------+-------------+
+5 rows in set (0.00 sec)
+mysql> select p_id,p_name,order_id,total_units
+    -> from product
+    -> right outer join order_idems
+    -> on product.p_id=order_idems.product_id;
++------+--------------+----------+-------------+
+| p_id | p_name       | order_id | total_units |
++------+--------------+----------+-------------+
+|  104 | mobile       |     5100 |          30 |
+|  102 | refrigerator |     5101 |          25 |
+|  103 | ipod         |     5102 |          25 |
+|  101 | camera       |     5103 |          10 |
++------+--------------+----------+-------------+
+4 rows in set (0.00 sec)
