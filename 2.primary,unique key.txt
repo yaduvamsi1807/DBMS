@@ -1,0 +1,46 @@
+mysql> create database kims;
+ERROR 1007 (HY000): Can't create database 'kims'; database exists
+mysql> use kims;
+Database changed
+mysql> show tables;
++----------------+
+| Tables_in_kims |
++----------------+
+| doctor         |
+| patient        |
++----------------+
+2 rows in set (0.00 sec)
+
+mysql> drop table test;
+ERROR 1051 (42S02): Unknown table 'kims.test'
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int         | YES  |     | NULL    |       |
+| patiname    | varchar(20) | YES  |     | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
+| fee         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table patient add primary key(patiid);
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table patient add unique(patiname);
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc patient;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| patiid      | int         | NO   | PRI | NULL    |       |
+| patiname    | varchar(20) | YES  | UNI | NULL    |       |
+| patidisease | varchar(25) | YES  |     | NULL    |       |
+| address     | varchar(10) | YES  |     | NULL    |       |
+| fee         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
