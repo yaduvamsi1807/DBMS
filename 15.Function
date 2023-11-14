@@ -1,0 +1,171 @@
+mysql> create database pen;
+Query OK, 1 row affected (0.03 sec)
+mysql> use pen;
+Database changed
+mysql> create table asd(name varchar(12),id int(20),salary int(20));
+Query OK, 0 rows affected, 2 warnings (0.06 sec)
+mysql> desc pen;
+ERROR 1146 (42S02): Table 'pen.pen' doesn't exist
+mysql> desc asd;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+mysql> alter table asd add branch varchar(34);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc asd;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| branch | varchar(34) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> alter table asd modify column branch varchar(50);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc asd;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| branch | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> rename table asd to dsa;
+Query OK, 0 rows affected (0.06 sec)
+mysql> desc dsa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| branch | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> alter table dsa rename column branch to city;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc dsa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
+| city   | varchar(50) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+mysql> alter table dsa drop column city;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> desc city;
+ERROR 1146 (42S02): Table 'pen.city' doesn't exist
+mysql> desc dsa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+mysql> insert into dsa values('renu',12,573),('reddy',45,647);
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+mysql>  insert into dsa values('joy',75,5736),('ram',59,6476);
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+mysql> select*from dsa;
++-------+------+--------+
+| name  | id   | salary |
++-------+------+--------+
+| renu  |   12 |    573 |
+| reddy |   45 |    647 |
+| joy   |   75 |   5736 |
+| ram   |   59 |   6476 |
++-------+------+--------+
+4 rows in set (0.00 sec)
+mysql> update dsa set id=65 where name='ramu';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+mysql> update dsa set id=65 where name='ram';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> desc dsa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| name   | varchar(12) | YES  |     | NULL    |       |
+| id     | int         | YES  |     | NULL    |       |
+| salary | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+mysql> select*from dsa;
++-------+------+--------+
+| name  | id   | salary |
++-------+------+--------+
+| renu  |   12 |    573 |
+| reddy |   45 |    647 |
+| joy   |   75 |   5736 |
+| ram   |   65 |   6476 |
++-------+------+--------+
+4 rows in set (0.00 sec)
+mysql> delete from dsa where id=45;
+Query OK, 1 row affected (0.02 sec)
+mysql> slect*from dsa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'slect*from dsa' at line 1
+mysql> select*from dsa;
++------+------+--------+
+| name | id   | salary |
++------+------+--------+
+| renu |   12 |    573 |
+| joy  |   75 |   5736 |
+| ram  |   65 |   6476 |
++------+------+--------+
+3 rows in set (0.00 sec)
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+mysql> select*from dsa;
++------+------+--------+
+| name | id   | salary |
++------+------+--------+
+| renu |   12 |    573 |
+| joy  |   75 |   5736 |
+| ram  |   65 |   6476 |
++------+------+--------+
+3 rows in set (0.00 sec)
+mysql> select name,id from dsa;
++------+------+
+| name | id   |
++------+------+
+| renu |   12 |
+| joy  |   75 |
+| ram  |   65 |
++------+------+
+3 rows in set (0.00 sec)
+mysql> truncate table dsa;
+Query OK, 0 rows affected (0.04 sec)
+mysql> select*from dsa;
+Empty set (0.00 sec)
+mysql> show tables;
++---------------+
+| Tables_in_pen |
++---------------+
+| dsa           |
++---------------+
+1 row in set (0.01 sec)
+mysql> drop table dsa;
+Query OK, 0 rows affected (0.03 sec)
+mysql> show tables;
+Empty set (0.00 sec)
