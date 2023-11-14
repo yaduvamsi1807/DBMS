@@ -1,0 +1,32 @@
+mysql> select * from marks;
++-------+---------------------+-----------+-------+-------+
+| sl_no | Name_of_the_student | subject   | Marks | Grade |
++-------+---------------------+-----------+-------+-------+
+|     1 | Raghu               | dbms      |    99 | A     |
+|     1 | Ram                 | physics   |    89 | A     |
+|     2 | Ruchi               | maths     |    77 | B     |
+|     3 | Varu                | chemistry |    88 | B     |
++-------+---------------------+-----------+-------+-------+
+4 rows in set (0.00 sec)
+mysql> create view marks_view as select subject, Marks and grade from marks;
+Query OK, 0 rows affected (0.08 sec)
+mysql> select * from marks_view;
++-----------+-----------------+
+| subject   | Marks and grade |
++-----------+-----------------+
+| dbms      |               0 |
+| physics   |               0 |
+| maths     |               0 |
+| chemistry |               0 |
++-----------+-----------------+
+4 rows in set, 4 warnings (0.02 sec)
+mysql> create index subject on marks(subject);
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> show index from marks;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| marks |          1 | subject  |            1 | subject     | A         |           4 |     NULL | NULL   | YES  | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.03 sec)
